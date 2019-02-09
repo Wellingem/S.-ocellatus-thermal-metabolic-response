@@ -1,0 +1,770 @@
+---
+title: "Aerobic and Anaerobic Metabolic Responses"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#Standard error function used later
+std.err <- function(x) { (sd(x))/(sqrt(length(x))) }
+```
+
+##Aerobic Metabolic Response
+
+#Oxygen Measurements
+```{r}
+rd_RMR_raw <- read.csv("S. ocellatus RMR Runs.csv", header=T)
+rd_MMR_raw <- read.csv("S. ocellatus MMR Runs.csv", header=T)
+
+#subset the data so only values with r-squared values above 0.90 are in set
+library(dplyr)
+rd_RMR_runs <- filter(rd_RMR_raw[rd_RMR_raw$CH.1.R.2 > 0.90,])
+rd_MMR_runs <- filter(rd_MMR_raw[rd_MMR_raw$CH.1.R.2 > 0.90,])
+```
+
+```{r}
+#calculating RMR for each fish at 24C
+RMR_S1_24 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S1_3'], 0.1, na.rm = TRUE))
+RMR_S2_24 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S2_2'], 0.1, na.rm = TRUE))
+RMR_S3_24 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S3_1'], 0.1, na.rm = TRUE))
+RMR_S4_24 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S4_1'], 0.1, na.rm = TRUE))
+RMR_S5_24 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S5_2'], 0.1, na.rm = TRUE))
+RMR_S6_24 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S6_1'], 0.1, na.rm = TRUE))
+RMR_S7_24 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S7_3'], 0.1, na.rm = TRUE))
+RMR_S8_24 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S8_3'], 0.1, na.rm = TRUE))
+RMR_S9_24 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S9_1'], 0.1, na.rm = TRUE))
+RMR_S10_24 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S10_1'], 0.1, na.rm = TRUE))
+
+RMR_24 <- c(RMR_S1_24, RMR_S2_24, RMR_S3_24, RMR_S4_24, RMR_S5_24, RMR_S6_24, RMR_S7_24, RMR_S8_24, RMR_S9_24, RMR_S10_24)
+
+RMR_24
+mean(RMR_24)
+std.err(RMR_24)
+
+boxplot(RMR_24)
+```
+```{r}
+#Calculating MMR for each fish at 24C
+MMR_S1_24 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S1_3'], na.rm = TRUE)
+MMR_S2_24 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S2_2'], na.rm = TRUE)
+MMR_S3_24 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S3_1'], na.rm = TRUE)
+MMR_S4_24 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S4_1'], na.rm = TRUE)
+MMR_S5_24 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S5_2'], na.rm = TRUE)
+MMR_S6_24 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S6_1'], na.rm = TRUE)
+MMR_S7_24 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S7_3'], na.rm = TRUE)
+MMR_S8_24 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S8_3'], na.rm = TRUE)
+MMR_S9_24 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S9_1'], na.rm = TRUE)
+MMR_S10_24 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S10_1'], na.rm = TRUE)
+
+MMR_24 <- c(MMR_S1_24, MMR_S2_24, MMR_S3_24, MMR_S4_24, MMR_S5_24, MMR_S6_24, MMR_S7_24, MMR_S8_24, MMR_S9_24, MMR_S10_24)
+
+MMR_24
+mean(MMR_24)
+std.err(MMR_24)
+
+boxplot(MMR_24)
+```
+```{r}
+#Calculating aerobic scope for each fish at 24C
+AS_24 <- MMR_24 - RMR_24
+
+AS_24
+mean(AS_24)
+std.err(AS_24)
+
+boxplot(AS_24)
+```
+
+```{r}
+#calculating RMR for each fish at 27C
+RMR_S1_27 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S1_4'], 0.1, na.rm = TRUE))
+RMR_S2_27 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S2_1'], 0.1, na.rm = TRUE))
+RMR_S3_27 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S3_2'], 0.1, na.rm = TRUE))
+RMR_S4_27 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S4_2'], 0.1, na.rm = TRUE))
+RMR_S5_27 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S5_4'], 0.1, na.rm = TRUE))
+RMR_S6_27 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S6_3'], 0.1, na.rm = TRUE))
+RMR_S7_27 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S7_4'], 0.1, na.rm = TRUE))
+RMR_S8_27 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S8_4'], 0.1, na.rm = TRUE))
+RMR_S9_27 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S9_2'], 0.1, na.rm = TRUE))
+RMR_S10_27 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S10_2'], 0.1, na.rm = TRUE))
+
+RMR_27 <- c(RMR_S1_27, RMR_S2_27, RMR_S3_27, RMR_S4_27, RMR_S5_27, RMR_S6_27, RMR_S7_27, RMR_S8_27, RMR_S9_27, RMR_S10_27)
+
+RMR_27
+mean(RMR_27)
+std.err(RMR_27)
+
+boxplot(RMR_27)
+```
+
+```{r}
+#Calculating MMR for each fish at 27C
+MMR_S1_27 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S1_4'], na.rm = TRUE)
+MMR_S2_27 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S2_1'], na.rm = TRUE)
+MMR_S3_27 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S3_2'], na.rm = TRUE)
+MMR_S4_27 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S4_2'], na.rm = TRUE)
+MMR_S5_27 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S5_4'], na.rm = TRUE)
+MMR_S6_27 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S6_3'], na.rm = TRUE)
+MMR_S7_27 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S7_4'], na.rm = TRUE)
+MMR_S8_27 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S8_4'], na.rm = TRUE)
+MMR_S9_27 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S9_2'], na.rm = TRUE)
+MMR_S10_27 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S10_2'], na.rm = TRUE)
+
+MMR_27 <- c(MMR_S1_27, MMR_S2_27, MMR_S3_27, MMR_S4_27, MMR_S5_27, MMR_S6_27, MMR_S7_27, MMR_S8_27, MMR_S9_27, MMR_S10_27)
+
+MMR_27
+mean(MMR_27)
+std.err(MMR_27)
+
+boxplot(MMR_27)
+```
+```{r}
+#Calculating aerobic scope for each fish at 27C
+AS_27 <- MMR_27 - RMR_27
+
+AS_27
+mean(AS_27)
+std.err(AS_27)
+
+boxplot(AS_27)
+```
+
+```{r}
+#calculating RMR for each fish at 30C
+RMR_S1_30 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S1_5'], 0.1, na.rm = TRUE))
+RMR_S2_30 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S2_4'], 0.1, na.rm = TRUE))
+RMR_S3_30 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S3_3'], 0.1, na.rm = TRUE))
+RMR_S4_30 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S4_4'], 0.1, na.rm = TRUE))
+RMR_S5_30 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S5_3'], 0.1, na.rm = TRUE))
+RMR_S6_30 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S6_4'], 0.1, na.rm = TRUE))
+RMR_S7_30 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S7_2'], 0.1, na.rm = TRUE))
+RMR_S8_30 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S8_1'], 0.1, na.rm = TRUE))
+RMR_S9_30 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S9_3'], 0.1, na.rm = TRUE))
+RMR_S10_30 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S10_4'], 0.1, na.rm = TRUE))
+
+RMR_30 <- c(RMR_S1_30, RMR_S2_30, RMR_S3_30, RMR_S4_30, RMR_S5_30, RMR_S6_30, RMR_S7_30, RMR_S8_30, RMR_S9_30, RMR_S10_30)
+
+RMR_30
+mean(RMR_30)
+std.err(RMR_30)
+
+boxplot(RMR_30)
+```
+
+```{r}
+#Calculating MMR for each fish at 30C
+MMR_S1_30 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S1_5'], na.rm = TRUE)
+MMR_S2_30 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S2_4'], na.rm = TRUE)
+MMR_S3_30 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S3_3'], na.rm = TRUE)
+MMR_S4_30 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S4_4'], na.rm = TRUE)
+MMR_S5_30 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S5_3'], na.rm = TRUE)
+MMR_S6_30 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S6_4'], na.rm = TRUE)
+MMR_S7_30 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S7_2'], na.rm = TRUE)
+MMR_S8_30 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S8_1'], na.rm = TRUE)
+MMR_S9_30 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S9_3'], na.rm = TRUE)
+MMR_S10_30 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S10_4'], na.rm = TRUE)
+
+MMR_30 <- c(MMR_S1_30, MMR_S2_30, MMR_S3_30, MMR_S4_30, MMR_S5_30, MMR_S6_30, MMR_S7_30, MMR_S8_30, MMR_S9_30, MMR_S10_30)
+
+MMR_30
+mean(MMR_30)
+std.err(MMR_30)
+
+boxplot(MMR_30)
+```
+
+```{r}
+#Calculating aerobic scope for each fish at 30C
+AS_30 <- MMR_30 - RMR_30
+
+AS_30
+mean(AS_30)
+std.err(AS_30)
+
+boxplot(AS_30)
+```
+
+```{r}
+#calculating RMR for each fish at 33C
+RMR_S1_33 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S1_1'], 0.1, na.rm = TRUE))
+RMR_S2_33 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S2_3'], 0.1, na.rm = TRUE))
+RMR_S3_33 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S3_4'], 0.1, na.rm = TRUE))
+RMR_S4_33 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S4_3'], 0.1, na.rm = TRUE))
+RMR_S5_33 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S5_1'], 0.1, na.rm = TRUE))
+RMR_S6_33 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S6_2'], 0.1, na.rm = TRUE))
+RMR_S7_33 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S7_1'], 0.1, na.rm = TRUE))
+RMR_S8_33 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S8_2'], 0.1, na.rm = TRUE))
+RMR_S9_33 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S9_4'], 0.1, na.rm = TRUE))
+RMR_S10_33 <- as.numeric(quantile(rd_RMR_runs$Computer.MO2[rd_RMR_runs$Run.Number=='S10_3'], 0.1, na.rm = TRUE))
+
+RMR_33 <- c(RMR_S1_33, RMR_S2_33, RMR_S3_33, RMR_S4_33, RMR_S5_33, RMR_S6_33, RMR_S7_33, RMR_S8_33, RMR_S9_33, RMR_S10_33)
+
+RMR_33
+mean(RMR_33)
+std.err(RMR_33)
+
+boxplot(RMR_33)
+```
+```{r}
+#Calculating MMR for each fish at 33C
+MMR_S1_33 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S1_1'], na.rm = TRUE)
+MMR_S2_33 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S2_3'], na.rm = TRUE)
+MMR_S3_33 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S3_4'], na.rm = TRUE)
+MMR_S4_33 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S4_3'], na.rm = TRUE)
+MMR_S5_33 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S5_1'], na.rm = TRUE)
+MMR_S6_33 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S6_2'], na.rm = TRUE)
+MMR_S7_33 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S7_1'], na.rm = TRUE)
+MMR_S8_33 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S8_2'], na.rm = TRUE)
+MMR_S9_33 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S9_4'], na.rm = TRUE)
+MMR_S10_33 <- max(rd_MMR_runs$Computer.MO2[rd_MMR_runs$Run.Number=='S10_3'], na.rm = TRUE)
+
+MMR_33 <- c(MMR_S1_33, MMR_S2_33, MMR_S3_33, MMR_S4_33, MMR_S5_33, MMR_S6_33, MMR_S7_33, MMR_S8_33, MMR_S9_33, MMR_S10_33)
+
+MMR_33
+mean(MMR_33)
+std.err(MMR_33)
+
+boxplot(MMR_33)
+```
+```{r}
+#Calculating aerobic scope for each fish at 33C
+AS_33 <- MMR_33 - RMR_33
+
+AS_33
+mean(AS_33)
+std.err(AS_33)
+
+boxplot(AS_33)
+```
+
+
+#Aerobic Metabolism Graphs
+
+```{r}
+#Putting calculated RMRs, MMRs, and Aerobic scopes into a dataframe for easy graphing
+
+temp <- c(24, 27, 30, 33)
+RMR <- c(mean(RMR_24), mean(RMR_27), mean(RMR_30), mean(RMR_33))
+RMR_err <- c(std.err(RMR_24), std.err(RMR_27), std.err(RMR_30), std.err(RMR_33))
+MMR <- c(mean(MMR_24), mean(MMR_27), mean(MMR_30), mean(MMR_33))
+MMR_err <- c(std.err(MMR_24), std.err(MMR_27), std.err(MMR_30), std.err(MMR_33))
+AS <- c(mean(AS_24), mean(AS_27), mean(AS_30), mean(AS_33))
+AS_err <- c(std.err(AS_24), std.err(AS_27), std.err(AS_30), std.err(AS_33))
+
+tpc_data <- data.frame(temp, RMR, RMR_err, MMR, MMR_err, AS, AS_err) 
+tpc_data
+```
+```{r}
+library(ggplot2)
+
+rd_AS_graph <- ggplot(tpc_data, aes(tpc_data$temp, tpc_data$AS)) + geom_point(size = 2) + geom_errorbar(aes(ymin = tpc_data$AS - tpc_data$AS_err, ymax = tpc_data$AS + tpc_data$AS_err), width = 0.2) + stat_smooth() + labs(y = expression (AS*(mg*O[2]*kg^-1*hr^-1)), x = expression (Temperature*(C))) + theme_classic() + theme(axis.text = element_text(size = 15, color = "black")) + scale_x_continuous(breaks = seq(24, 33, by = 3)) + coord_cartesian(ylim = c(0, 1000))
+
+rd_AS_graph
+```
+```{r}
+#RMR graph
+rd_RMR_graph <- ggplot(tpc_data, aes(tpc_data$temp, tpc_data$RMR)) + geom_point(size = 2) + geom_errorbar(aes(ymin = tpc_data$RMR - tpc_data$RMR_err, ymax = tpc_data$RMR + tpc_data$RMR_err), width = 0.2) + labs(y = expression (RMR*(mg*O[2]*kg^-1*hr^-1)), x = expression (Temperature*(C))) + theme_classic() + theme(axis.text = element_text(size = 15, color = "black")) + stat_smooth() 
+
+rd_RMR_graph + coord_cartesian(ylim = c(100, 500))
+
+```
+```{r}
+#MMR
+rd_MMR_graph <- ggplot(tpc_data, aes(tpc_data$temp, tpc_data$MMR)) + geom_point(size = 2) + geom_errorbar(aes(ymin = tpc_data$MMR - tpc_data$MMR_err, ymax = tpc_data$MMR + tpc_data$MMR_err), width = 0.2) + labs(y = expression (MMR*(mg*O[2]*kg^-1*hr^-1)), x = expression (Temperature*(C))) + theme_classic() + theme(axis.text = element_text(size = 15, color = "black")) + stat_smooth() 
+
+rd_MMR_graph + coord_cartesian(ylim = c(500, 1000))
+```
+```{r}
+#RMR and MMR
+temps <- c(24, 27, 30, 33, 24, 27, 30, 33)
+RMR_MMR <- c(mean(RMR_24), mean(RMR_27), mean(RMR_30), mean(RMR_33), mean(MMR_24), mean(MMR_27), mean(MMR_30), mean(MMR_33))
+RMR_MMR_err <- c(std.err(RMR_24), std.err(RMR_27), std.err(RMR_30), std.err(RMR_33), std.err(MMR_24), std.err(MMR_27), std.err(MMR_30), std.err(MMR_33))
+desig <- c('RMR', 'RMR', 'RMR', 'RMR', 'MMR', 'MMR', 'MMR', 'MMR')
+
+RMR_MMR_data <- data.frame(temps, RMR_MMR, RMR_MMR_err, desig)
+RMR_MMR_data
+
+#Graph
+
+RMR_MMR_graph <- ggplot(RMR_MMR_data, aes(RMR_MMR_data$temps, RMR_MMR_data$RMR_MMR, group = desig)) + geom_point(size = 3) + geom_errorbar(aes(ymin = RMR_MMR_data$RMR_MMR - RMR_MMR_data$RMR_MMR_err, ymax = RMR_MMR_data$RMR_MMR + RMR_MMR_data$RMR_MMR_err), width=.1) + stat_smooth() + labs(y = expression (MMR*(mg*O[2]*kg^-1*hr^-1)), x = expression (Temperature*(C))) + theme_classic() + theme(axis.text = element_text(size = 15, color = "black")) + coord_cartesian(ylim = c(0, 1000)) + scale_x_continuous(breaks = seq(24, 33, by = 3))
+
+RMR_MMR_graph 
+```
+
+#Aerobic Metabolism Statistics
+```{r}
+#anova between temps
+aov1 <- aov(model_data$RMRs ~ as.factor(model_data$temps))
+summary(aov1)
+TukeyHSD(aov1)
+
+aov2 <- aov(model_data$MMRs ~ as.factor(model_data$temps))
+summary(aov2)
+TukeyHSD(aov2)
+
+aov3 <- aov(model_data$ASs ~ as.factor(model_data$temps))
+summary(aov3)
+TukeyHSD(aov3)
+```
+
+#Maximum Likelihood models for Thermal Performance Curves
+```{r}
+#dataframe suitable to run my MLE models on
+
+temps <- c(24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 27, 27, 27, 27, 27, 27, 27, 27, 27, 27, 30, 30, 30, 30, 30,30, 30, 30, 30, 30, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33)
+
+RMRs <- c(RMR_S1_24, RMR_S2_24, RMR_S3_24, RMR_S4_24, RMR_S5_24,  RMR_S6_24, RMR_S7_24, RMR_S8_24, RMR_S9_24, RMR_S10_24, RMR_S1_27, RMR_S2_27, RMR_S3_27, RMR_S4_27, RMR_S5_27, RMR_S6_27, RMR_S7_27, RMR_S8_27, RMR_S9_27, RMR_S10_27, RMR_S1_30, RMR_S2_30, RMR_S3_30, RMR_S4_30, RMR_S5_30, RMR_S5_30, RMR_S7_30, RMR_S8_30, RMR_S9_30, RMR_S10_30, RMR_S1_33, RMR_S2_33, RMR_S3_33, RMR_S4_33, RMR_S5_33, RMR_S6_33, RMR_S7_33, RMR_S8_33, RMR_S9_33, RMR_S10_33)
+
+MMRs <- c(MMR_S1_24, MMR_S2_24, MMR_S3_24, MMR_S4_24, MMR_S5_24, MMR_S6_24, MMR_S7_24, MMR_S8_24, MMR_S9_24, MMR_S10_24, MMR_S1_27, MMR_S2_27, MMR_S3_27, MMR_S4_27, MMR_S5_27, MMR_S6_27, MMR_S7_27, MMR_S8_27, MMR_S9_27, MMR_S10_27, MMR_S1_30, MMR_S2_30, MMR_S3_30, MMR_S4_30, MMR_S5_30, MMR_S6_30, MMR_S7_30, MMR_S8_30, MMR_S9_30, MMR_S10_30, MMR_S1_33, MMR_S2_33, MMR_S3_33, MMR_S4_33, MMR_S5_33, MMR_S6_33, MMR_S7_33, MMR_S8_33, MMR_S9_33, MMR_S10_33)
+
+ASs <- MMRs - RMRs
+
+model_data <- data.frame(temps, RMRs, MMRs, ASs)
+model_data
+
+raw_plot <- ggplot(model_data, aes(model_data$temps, model_data$ASs)) + geom_point() + theme_classic() + xlab('Temperature (C)') + ylab('Metabolic Rate')
+
+raw_plot
+```
+
+
+```{r}
+#Maximum likelihood approach using a linear model
+Linear_max <- function(p, X, Y) {
+  b0 <- p[1]; b1 <- p[2]; sd <- p[3]
+  
+  rsd <- (b0 + b1 * X ) - Y
+  
+  -sum(dnorm(rsd, mean = 0, sd = sd, log = T)) 
+}
+
+linear_optim <- optim(c(1, 0, 5), Linear_max, X = model_data$temps, Y = model_data$ASs)
+linear_optim
+```
+```{r}
+#Maximum likelihood approach for the quadratic function
+Quadratic_max <- function(p, X, Y) {
+  a <- p[1]; b <- p[2]; c <- p[3]; sd <- p[4]
+  
+  rsd2 <- (a * (X^2) + b * X + c) - Y
+  
+  -sum(dnorm(rsd2, mean = 0, sd = sd, log = T))
+}
+
+quadratic_optim <- optim(c(1, 1, 1, 1), Quadratic_max, X = model_data$temps, Y = model_data$ASs)
+quadratic_optim
+```
+```{r}
+#Maximum likelihood approach for the Gaussian function
+Gaussian_max <- function(p, X, Y) {
+  a <- p[1]; b <- p[2]; c <- p[3]; sd <- p[4]
+  
+  rsd3 <- a * (exp( ((-0.5) * ((abs(X - b)) / c )^2))) - Y
+  
+  -sum(dnorm(rsd3, mean = 0, sd = sd, log = T)) 
+}
+
+gaussian_optim <- optim(c(0, 0, 0, 1), Gaussian_max, X = model_data$temps, Y = model_data$ASs)
+gaussian_optim
+```
+```{r}
+#Maximum likelihood approach for the modified Gaussian function
+modGaussian_max <- function(p, X, Y) {
+  a <- p[1]; b <- p[2]; c <- p[3]; d <- p[4]; sd <- p[5]
+  
+  rsd4 <- a * (exp( ((-0.5) * ((abs(X - b)) / c )^d))) - Y
+  
+  -sum(dnorm(rsd4, mean = 0, sd = sd, log = T)) 
+}
+
+modgaussian_optim <- optim(c(0, 0, 0, 2, 1), modGaussian_max, X = model_data$temps, Y = model_data$ASs)
+modgaussian_optim
+```
+```{r}
+#Maximum likelihood approach for the Weibull function
+Weibull_max <- function(p, X, Y) {
+  a <- p[1]; b <- p[2]; c <- p[3]; d <- p[4]; sd <- p[5]
+  
+  rsd5 <- ((a * (((d - 1) / d)^((1 - d) / d)) * (((X - b) / c) + ((d - 1) / d)^(1 / d))^(d - 1) *     (exp(-(((X - b) / c) + ((d - 1) / d)^(1 / d))^d)) ) + ((d-1) / d) ) - Y
+  
+  -sum(dnorm(rsd5, mean = 0, sd = sd, log = T)) 
+}
+
+weibull_optim <- optim(c(1, 1, 1, 2, 1), Weibull_max, X = model_data$temps, Y = model_data$ASs)
+weibull_optim
+```
+```{r}
+#Likelihood values (mod_LLs)
+mod_LLs <- c(linear_optim$value, quadratic_optim$value, gaussian_optim$value, modgaussian_optim$value, weibull_optim$value)
+
+#Number of model parameters for each model above (mod_pars)
+mod_pars <- c(length(linear_optim$par) - 1, length(quadratic_optim$par) - 1, length(gaussian_optim$par) - 1, length(modgaussian_optim$par) - 1, length(weibull_optim$par) - 1)
+
+#Calculate AIC values for each model:
+mod_AICs <- (2 * log(mod_LLs)) + 2 * (mod_pars)  
+mod_AICs
+
+#Calculating AIC weights
+library(geiger)
+aicw(mod_AICs)
+```
+# Graphing the best models onto the raw data
+
+# Build their equations using the parameters from the MLE
+```{r}
+#Linear Model
+linear_eq <- function(x) (linear_optim$par[2] * x) + linear_optim$par[1]
+
+#Quadratic Model
+quadratic_eq <- function(x) (quadratic_optim$par[1] * (x^2)) + (quadratic_optim$par[2] * x) +   quadratic_optim$par[3] 
+
+#Gaussian Model
+gaussian_eq <- function(x) gaussian_optim$par[1] * exp (-0.5 * abs(x - gaussian_optim$par[2]) / gaussian_optim$par[3] ^2)
+
+#Layer them on the raw data
+model_plot <- raw_plot + stat_function(fun = linear_eq, color = 'blue') + stat_function(fun = quadratic_eq, color = 'red') + stat_function(fun = gaussian_eq, color = 'purple')
+
+model_plot 
+
+rd_model_graph <- ggplot(tpc_data, aes(tpc_data$temp, tpc_data$AS)) + geom_point(size = 2) + geom_errorbar(aes(ymin = tpc_data$AS - tpc_data$AS_err, ymax = tpc_data$AS + tpc_data$AS_err), width=.1) + labs(y = expression (AS*(mg*O[2]*kg^-1*hr^-1)), x = expression (Temperature*(C))) + theme_classic() + theme(axis.text = element_text(size = 12, color = "black")) 
+
+rd_model_graph + coord_cartesian(ylim = c(300, 800)) 
+#+ stat_function(fun = linear_eq, color = 'blue') + stat_function(fun = quadratic_eq, color = 'red') 
+```
+
+
+#Hematocrit measurements
+```{r}
+rd_hct <- read.csv("S. ocellatus Hematocrit data.csv", header= TRUE)
+
+hct_24 <- rd_hct$Hematocrit....RBC.[rd_hct$Temperature=="24"]
+hct_27 <- rd_hct$Hematocrit....RBC.[rd_hct$Temperature=="27"]
+hct_30 <- rd_hct$Hematocrit....RBC.[rd_hct$Temperature=="30"]
+hct_33 <- rd_hct$Hematocrit....RBC.[rd_hct$Temperature=="33"]
+
+hct_temp <- c(24, 27, 30, 33)
+hct <- c(mean(hct_24), mean(hct_27), mean(hct_30), mean(hct_33))
+hct_err <- c(std.err(hct_24), std.err(hct_27), std.err(hct_30), std.err(hct_33))
+
+hct_data <- data.frame(hct_temp, hct, hct_err) 
+
+
+#testing to see if there are significant differences in hematocrit between temps
+hct_anova <- aov(rd_hct$Hematocrit....RBC. ~ as.factor(rd_hct$Temperature))
+summary(hct_anova)
+
+hct_graph <- ggplot(hct_data, aes(as.factor(hct_data$hct_temp), hct_data$hct)) + geom_point(size = 2) + geom_errorbar(aes(ymin = hct_data$hct - hct_data$hct_err, ymax = hct_data$hct + hct_data$hct_err), width = 0.2) + labs(y = expression(Hematocrit ('%'*RBC)), x = expression (Temperature (C))) + theme_classic() + theme(axis.text = element_text(size = 15, color = "black"))
+
+hct_graph + coord_cartesian(ylim = c(25, 40))
+
+hct_data
+```
+#How does aerobic scope and MMR change with chase time?
+
+```{r}
+rd_AS_chase <- read.csv('S. ocellatus AS chase time.csv', header=T)
+
+AS_chase_24 <- rd_AS_chase$Time.chased..s.[rd_AS_chase$Temperature=="24"]
+AS_chase_27 <-rd_AS_chase$Time.chased..s.[rd_AS_chase$Temperature=="27"]
+AS_chase_30 <- rd_AS_chase$Time.chased..s.[rd_AS_chase$Temperature=="30"]
+AS_chase_33 <- rd_AS_chase$Time.chased..s.[rd_AS_chase$Temperature=="33"]
+#AS_chase_27 <- c(130, 75, 115, 80, 110, 147, 126, 154, 130)
+
+chase_temp <- c(24, 27, 30, 33)
+AS_chase <- c(mean(AS_chase_24), mean(AS_chase_27, na.rm = T), mean(AS_chase_30), mean(AS_chase_33))
+AS_chase_err <- c(std.err(AS_chase_24), std.err(AS_chase_27), std.err(AS_chase_30), std.err(AS_chase_33))
+
+AS_chase_27
+
+AS_chase_data <- data.frame(chase_temp, AS_chase, AS_chase_err) 
+AS_chase_data
+
+#test to check for different AS_chase times between temperatures
+AS_chase_anova <- aov(rd_AS_chase$Time.chased..s. ~ as.factor(rd_AS_chase$Temperature))
+summary(AS_chase_anova)
+
+TukeyHSD(AS_chase_anova)
+```
+```{r}
+#Chase time and temperature
+
+AS_chase_graph <- ggplot(AS_chase_data, aes(x = as.factor(chase_temp), y = AS_chase)) + geom_point(size = 3) + geom_errorbar(ymin = AS_chase - AS_chase_err, ymax = AS_chase + AS_chase_err, width = 0.2) + theme_classic() + labs(x = 'Temperature', y = 'Time Chased') + theme(axis.text = element_text(size = 15, color = "black")) + coord_cartesian(ylim = c(0, 200))
+
+AS_chase_graph
+```
+
+
+Relationships btwn chase times and MRs
+```{r}
+chase_times <- c(AS_chase_24, AS_chase_27, AS_chase_30, AS_chase_33)
+
+chase_tests <- data.frame(temps, MMRs, ASs, chase_times)
+
+#chase and MMR
+chase_mmr <- lm(chase_tests$MMRs ~ chase_tests$chase_times)
+summary(chase_mmr)
+
+chase_mmr_graph <- ggplot(chase_tests, aes(chase_times, MMRs, shape = as.factor(temps))) + geom_point(size = 3.0) + theme_classic() + scale_shape_manual(values = c(15, 16, 17, 18)) + labs(x = 'Chase Time (s)', y = 'MMR', shape = 'Temperature') + geom_smooth(method = 'lm', se = FALSE) + theme(axis.text = element_text(size = 15, color = "black")) 
+
+chase_mmr_graph
+```
+
+```{r}
+#chase and AS
+chase_as <- lm(chase_tests$ASs ~ chase_tests$chase_times)
+summary(chase_as)
+
+chase_as_graph <- ggplot(chase_tests, aes(chase_times, ASs, color = as.factor(temps))) + geom_point() + theme_classic() + labs(x = 'Time to Exhaustion (s)', y = 'Aerobic scope', color = 'Temperature') + scale_color_manual(values = c('blue', 'black', 'darkslategray4', 'firebrick')) + geom_smooth(method = 'lm', se = FALSE) + theme(axis.text = element_text(size = 15, color = "black"))
+
+
+chase_as_graph
+```
+
+
+#Ancovas with Metabolic rate, temperature, and chase time
+
+```{r}
+#ancova: MMR 
+anc_mmr1 <- lm(chase_tests$MMRs ~ chase_tests$chase_times * as.factor(chase_tests$temps))
+anova(anc_mmr1)
+
+#anc_mmr2 <- aov(chase_tests$MMRs ~ #as.factor(chase_tests$temps)*chase_tests$chase_times)
+#summary(anc_mmr2)
+
+#ancova: AS
+
+anc_as1 <- lm(chase_tests$ASs ~ chase_tests$chase_times * as.factor(chase_tests$temps))
+anova(anc_as1)
+
+#anc_as2 <- aov(chase_tests$ASs ~ #as.factor(chase_tests$temps)*chase_tests$chase_times)
+#summary(anc_as2)
+
+
+```
+
+Separate linear regressions between chase time and MMR
+```{r}
+#24
+chase_24  <- chase_tests$MMRs[chase_tests$temps == '24']
+data_24 <- data.frame(AS_chase_24, chase_24)
+
+lm_24_chase <- lm(data_24$chase_24 ~ data_24$AS_chase_24)
+summary(lm_24_chase)
+
+#27
+chase_27  <- chase_tests$MMRs[chase_tests$temps == '27']
+data_27 <- data.frame(AS_chase_27, chase_27)
+
+lm_27_chase <- lm(data_27$chase_27 ~ data_27$AS_chase_27)
+summary(lm_27_chase)
+
+#30
+chase_30  <- chase_tests$MMRs[chase_tests$temps == '30']
+data_30 <- data.frame(AS_chase_30, chase_30)
+
+lm_30_chase <- lm(data_30$chase_30 ~ data_30$AS_chase_30)
+summary(lm_30_chase)
+
+#33
+chase_33  <- chase_tests$MMRs[chase_tests$temps == '33']
+data_33 <- data.frame(AS_chase_33, chase_33)
+
+lm_33_chase <- lm(data_33$chase_33 ~ data_33$AS_chase_33)
+summary(lm_33_chase)
+```
+##Anaerobic Metabolic Response
+
+#Base Lactate
+```{r}
+base_lactate <- read.csv('Base Lactate Concentrations.csv', header = T)
+
+#Examining for outliers
+OutVals = boxplot(base_lactate$Lactate)$out
+which(base_lactate$Lactate %in% OutVals)
+
+#Base Lactate w/out outlier
+base_lactate_NO <- read.csv("Base Lactate Concentrations v2.csv", header = T )
+
+#Transform into umol/g ww
+Lactate_umolg <- (base_lactate_NO$Lactate)/1.06
+
+#Add onto dataframe
+base_lac_data <- data.frame(base_lactate_NO, Lactate_umolg)
+```
+#Base lactate and temperatures
+```{r}
+base_mean <- mean(base_lac_data$Lactate_umolg)
+base_sd <- sd(base_lac_data$Lactate_umolg)
+base_std.err <- std.err(base_lac_data$Lactate_umolg)
+
+base_mean
+base_std.err
+```
+
+```{r}
+#Nested ANOVA (tanks nested in temperature treatments)
+base_lac_data$Tank <- as.factor(base_lac_data$Tank)
+base_lac_data$Temperature <- as.factor(base_lac_data$Temperature)
+
+base_lac_aov <- aov(Lactate_umolg ~ Temperature/Tank, data = base_lac_data, type = 3)
+summary(base_lac_aov)
+
+#fix pseudorep
+f <- 29.858/8.199
+f
+
+1 - pf(f, 1, 2)
+```
+
+
+
+#Maximum Lactate Concentration and Temperature
+```{r}
+lactate_data <- read.csv('S. ocellatus lactate data v2.csv', header = T)
+
+#Examining for outliers
+OutVals = boxplot(lactate_data$Lactate)$out
+which(lactate_data$Lactate %in% OutVals)
+
+```
+```{r}
+#Examined outliers, removed 
+lactate_data_NO <- read.csv('S. ocellatus lactate data v3.csv', header = T)
+
+#transform into umol/g ww
+maxLactate_umolg <- (lactate_data_NO$Lactate)/1.06
+
+#add onto dataframe
+max_lac_data <- data.frame(lactate_data_NO, maxLactate_umolg)
+
+#Group 
+lac_24 <- max_lac_data$maxLactate_umolg[lactate_data_NO$Temperature..=='24']
+lac_27 <- max_lac_data$maxLactate_umolg[lactate_data_NO$Temperature..=='27']
+lac_30 <- max_lac_data$maxLactate_umolg[lactate_data_NO$Temperature..=='30']
+lac_33 <- max_lac_data$maxLactate_umolg[lactate_data_NO$Temperature..=='33']
+
+#dataframe to graph
+lac_temp <- c('24', '27', '30', '33')
+lac_means <- c(mean(lac_24), mean(lac_27), mean(lac_30), mean(lac_33))
+lac_error <- c(std.err(lac_24), std.err(lac_27), std.err(lac_30), std.err(lac_33))
+
+
+lac_graph_df <- data.frame(lac_temp, lac_means, lac_error)
+
+#graph
+lac_graph <- ggplot(data= lac_graph_df, aes(x = lac_temp, y = lac_means)) + geom_point() + theme_classic() + labs(x = 'Temperature', y = 'Lactate concentration (umol/g)') + geom_errorbar(aes(ymin = lac_means - lac_error, ymax = lac_means + lac_error), width = 0.2) + theme(axis.text = element_text(size = 15, color = "black")) + coord_cartesian(ylim = c(0, 100)) 
+lac_graph 
+
+lac_graph_df
+```
+
+#basic lactate info
+```{r}
+#24 mean, std.err
+mean(lac_24)
+std.err(lac_24)
+```
+```{r}
+#27 mean, std.err
+mean(lac_27)
+std.err(lac_27)
+```
+
+```{r}
+#30 mean, std.err
+mean(lac_30)
+std.err(lac_30)
+```
+
+```{r}
+#33 mean, std.err
+mean(lac_33)
+std.err(lac_33)
+```
+
+```{r}
+#across all temps
+maxLac_mean <- mean(max_lac_data$maxLactate_umolg)
+maxLac_std <- std.err(max_lac_data$maxLactate_umolg)
+
+maxLac_mean
+maxLac_std
+
+#increase in lactate
+maxLac_mean/base_mean
+
+```
+
+#Statistics for Lactate
+```{r}
+#anova for temperatures
+lac_aov <- aov(lactate_data_NO$Lactate ~ lactate_data_NO$Temperature..)
+summary(lac_aov)
+```
+#How does body size affect lactate
+```{r}
+#ANCOVA with temperature and body size
+lac_body <- lm(lactate_data_NO$Lactate ~ lactate_data_NO$Mass..g. * as.factor(lactate_data_NO$Temperature..))
+anova(lac_body)
+
+lac_body_graph <- ggplot(lactate_data_NO, aes(Mass..g., Lactate, color = as.factor(Temperature..))) + geom_point() + theme_classic() + labs(x = 'Body Mass (g)', y = 'Lactate Concentration (umol/g)', color = 'Temperature') + scale_color_manual(values = c('blue', 'black', 'darkslategray4', 'firebrick')) + geom_smooth(method = 'lm', se = FALSE) + theme(axis.text = element_text(size = 15, color = "black"))
+
+lac_body_graph
+```
+```{r}
+#Separate regressions for temperatures
+
+lac_body_24 <- lm(lactate_data_NO$Lactate[lactate_data_NO$Temperature..=='24'] ~ lactate_data_NO$Mass..g.[lactate_data_NO$Temperature..=='24'])
+summary(lac_body_24)
+
+lac_body_27 <- lm(lactate_data_NO$Lactate[lactate_data_NO$Temperature..=='27'] ~ lactate_data_NO$Mass..g.[lactate_data_NO$Temperature..=='27'])
+summary(lac_body_27)
+
+lac_body_30 <- lm(lactate_data_NO$Lactate[lactate_data_NO$Temperature..=='30'] ~ lactate_data_NO$Mass..g.[lactate_data_NO$Temperature..=='30'])
+summary(lac_body_30)
+
+lac_body_33 <- lm(lactate_data_NO$Lactate[lactate_data_NO$Temperature..=='33'] ~ lactate_data_NO$Mass..g.[lactate_data_NO$Temperature..=='33'])
+summary(lac_body_33)
+```
+
+
+#how does chase time affect lactate
+
+```{r}
+#ANCOVA with temperature and chase time
+lac_chase <- lm(lactate_data_NO$Lactate ~ lactate_data_NO$Time.exercised..sec. * as.factor(lactate_data_NO$Temperature..))
+anova(lac_chase)
+
+lac_chase_graph <- ggplot(lactate_data_NO, aes(Time.exercised..sec., Lactate, color = as.factor(Temperature..))) + geom_point() + theme_classic() + labs(x = 'Time to Exhaustion (s)', y = 'Lactate Concentration (umol/g)', color = 'Temperature') + scale_color_manual(values = c('blue', 'black', 'darkslategray4', 'firebrick')) + geom_smooth(method = 'lm', se = FALSE) + theme(axis.text = element_text(size = 15, color = "black"))
+
+lac_chase_graph
+
+lac_chase_graph2 <- ggplot(lactate_data_NO, aes(Time.exercised..sec., Lactate)) + geom_point() + theme_classic() + labs(x = 'Time to Exhaustion (s)', y = 'Lactate Concentration (umol/g)') + geom_smooth(method = 'lm', se = FALSE) + theme(axis.text = element_text(size = 15, color = "black"))
+
+lac_chase_graph2
+```
+```{r}
+#Separate regressions for temperatures
+
+lac_chase_24 <- lm(lactate_data_NO$Lactate[lactate_data_NO$Temperature..=='24'] ~ lactate_data_NO$Time.exercised..sec.[lactate_data_NO$Temperature..=='24'])
+summary(lac_chase_24)
+
+lac_chase_27 <- lm(lactate_data_NO$Lactate[lactate_data_NO$Temperature..=='27'] ~ lactate_data_NO$Time.exercised..sec.[lactate_data_NO$Temperature..=='27'])
+summary(lac_chase_27)
+
+lac_chase_30 <- lm(lactate_data_NO$Lactate[lactate_data_NO$Temperature..=='30'] ~ lactate_data_NO$Time.exercised..sec.[lactate_data_NO$Temperature..=='30'])
+summary(lac_chase_30)
+
+lac_chase_33 <- lm(lactate_data_NO$Lactate[lactate_data_NO$Temperature..=='33'] ~ lactate_data_NO$Time.exercised..sec.[lactate_data_NO$Temperature..=='33'])
+summary(lac_chase_33)
+```
+```{r}
+#without temp, just chase time
+
+lac_chase_all <- lm(lactate_data_NO$Lactate ~ lactate_data_NO$Time.exercised..sec.)
+summary(lac_chase_all)
+```
+
