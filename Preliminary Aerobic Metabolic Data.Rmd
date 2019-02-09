@@ -1,0 +1,83 @@
+---
+title: "Preliminary Aerobic Metabolic Data"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+rd_pre_raw<-read.csv("Red drum preliminary data.csv", header=T)
+
+#subset the data so only values with r-squared values above 0.90 are in set
+library(dplyr)
+rd_prelim <- filter(rd_pre_raw[rd_pre_raw$CH.1.R.2 > 0.90,])
+summary(rd_prelim)
+```
+```{r}
+plot(rd_prelim$Computer.MO2~rd_prelim$Time..hr.)
+
+library(ggplot2)
+
+rd_graph<- ggplot(rd_prelim, aes(rd_prelim$Time..hr., rd_prelim$Computer.MO2, color = as.factor(rd_prelim$Run.Number))) + geom_point() + stat_smooth(method="loess") + theme_classic() + labs(x = "Time (hr)") + labs (color =" Individual", y=expression (Mo[2]*(mgO[2]*kg^-1*hr^-1))) + ylim(0, 500)
+
+rd_graph
+```
+```{r}
+#calculating RMR using quantiles
+
+RMR_6 <- quantile(rd_prelim$Computer.MO2[rd_prelim$Run.Number=='6'], 0.1)
+RMR_7 <- quantile(rd_prelim$Computer.MO2[rd_prelim$Run.Number=='7'], 0.1)
+RMR_8 <- quantile(rd_prelim$Computer.MO2[rd_prelim$Run.Number=='8'], 0.1)
+RMR_9 <- quantile(rd_prelim$Computer.MO2[rd_prelim$Run.Number=='9'], 0.1)
+RMR_10 <- quantile(rd_prelim$Computer.MO2[rd_prelim$Run.Number=='10'], 0.1)
+
+rd_pre_RMR <- c(RMR_6, RMR_7, RMR_8, RMR_9, RMR_10) 
+rd_pre_RMR
+
+mean(rd_pre_RMR)
+sd(rd_pre_RMR)
+
+std.err<-function(x) { (sd(x))/(sqrt(length(x))) }
+
+std.err(rd_pre_RMR)
+```
+```{r}
+run_10 <- rd_prelim$Computer.MO2[rd_prelim$Run.Number=="10" & rd_prelim$Time..hr. > "5"]
+run_10b <- rd_prelim$Computer.MO2[rd_prelim$Run.Number=="10b"]
+
+t.test(run_10, run_10b)
+```
+
+
+
+#Preliminary MMR Work:
+```{r}
+rd_mmr_raw <- read.csv("Rd preliminary MMR.csv", header=T)
+
+rd_prelim_mmr <- filter(rd_mmr_raw[rd_mmr_raw$CH.1.R.2 > 0.90,])
+summary(rd_prelim_mmr)
+```
+
+```{r}
+MMR_1 <- max(rd_prelim_mmr$Computer.MO2[rd_prelim_mmr$Run.Number=='1'])
+MMR_2 <- max(rd_prelim_mmr$Computer.MO2[rd_prelim_mmr$Run.Number=='2'])
+MMR_3 <- max(rd_prelim_mmr$Computer.MO2[rd_prelim_mmr$Run.Number=='3'])
+MMR_4 <- max(rd_prelim_mmr$Computer.MO2[rd_prelim_mmr$Run.Number=='4'])
+MMR_5 <- max(rd_prelim_mmr$Computer.MO2[rd_prelim_mmr$Run.Number=='5'])
+MMR_6 <- max(rd_prelim_mmr$Computer.MO2[rd_prelim_mmr$Run.Number=='6'])
+MMR_7 <- max(rd_prelim_mmr$Computer.MO2[rd_prelim_mmr$Run.Number=='7'])
+MMR_8 <- max(rd_prelim_mmr$Computer.MO2[rd_prelim_mmr$Run.Number=='8'])
+MMR_9 <- max(rd_prelim_mmr$Computer.MO2[rd_prelim_mmr$Run.Number=='9'])
+MMR_10 <- max(rd_prelim_mmr$Computer.MO2[rd_prelim_mmr$Run.Number=='10'])
+MMR_11 <- max(rd_prelim_mmr$Computer.MO2[rd_prelim_mmr$Run.Number=='11'])
+MMR_12 <- max(rd_prelim_mmr$Computer.MO2[rd_prelim_mmr$Run.Number=='12'])
+
+rd_pre_MMR <- c(MMR_1, MMR_2, MMR_3, MMR_4, MMR_5, MMR_6, MMR_7, MMR_8, MMR_9, MMR_10, MMR_11, MMR_12)
+
+rd_pre_MMR
+mean(rd_pre_MMR)
+std.err(rd_pre_MMR)
+```
+

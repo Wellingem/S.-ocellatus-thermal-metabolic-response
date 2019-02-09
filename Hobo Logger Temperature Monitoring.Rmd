@@ -1,0 +1,198 @@
+---
+title: "Hobo Logger Temperature Monitoring"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+t1_temp <- read.csv('Tank 1 Temp.csv', header=T)
+t2_temp <- read.csv('Tank 2 Temp.csv', header=T)
+t3_temp <- read.csv('Tank 3 Temp.csv', header=T)
+t4_temp <- read.csv('Tank 4 Temp.csv', header=T)
+t5_temp <- read.csv('Tank 5 Temp.csv', header=T)
+t6_temp <- read.csv('Tank 6 Temp.csv', header=T)
+t7_temp <- read.csv('Tank 7 Temp.csv', header=T)
+t8_temp <- read.csv('Tank 8 Temp.csv', header=T)
+t9_temp <- read.csv('Tank 9 Temp.csv', header=T)
+t10_temp <- read.csv('Tank 10 Temp.csv', header=T)
+t11_temp <- read.csv('Tank 11 Temp.csv', header=T)
+t12_temp <- read.csv('Tank 12 Temp.csv', header=T)
+```
+
+```{r}
+#reformat columns in csv
+t1_temps <- as.numeric(levels(t1_temp$Temperature))[t1_temp$Temperature]
+t1_date <- as.Date(t1_temp$Date_Time, format = "%m/%d/%Y")
+
+tank_1 <- data.frame(t1_date, t1_temps)
+
+sub_tank_1 <- tank_1[tank_1$t1_date > '0018-03-12',]
+summary(sub_tank_1)
+
+t1_subtemp_graph <- ggplot(sub_tank_1, aes(t1_date, t1_temps)) + geom_point()
+t1_subtemp_graph + coord_cartesian(ylim = c(25, 35))
+```
+
+
+
+```{r}
+#reformat columns in csv
+t2_temps <- as.numeric(t2_temp$Temp)
+t2_date <- as.Date(t2_temp$Date_Time , format = "%m/%d/%Y")
+
+tank_2 <- data.frame(t2_date, t2_temps)
+
+sub_tank_2 <- tank_2[tank_2$t2_date > '0018-03-12',]
+summary(sub_tank_2)
+
+t2_subtemp_graph <- ggplot(sub_tank_2, aes(t2_date, t2_temps)) + geom_point()
+t2_subtemp_graph + coord_cartesian(ylim = c(25, 35))
+```
+
+
+```{r}
+#reformat columns in csv
+t3_temps <- as.numeric(t3_temp$Temp)
+t3_date <- as.Date(t3_temp$Date_Time , format = "%m/%d/%Y")
+
+tank_3 <- data.frame(t3_date, t3_temps)
+
+sub_tank_3 <- tank_3[tank_3$t3_date > '0018-03-12',]
+summary(sub_tank_3)
+
+t3_subtemp_graph <- ggplot(sub_tank_3, aes(t3_date, t3_temps)) + geom_point()
+t3_subtemp_graph + coord_cartesian(ylim = c(25, 35))
+```
+
+
+```{r}
+#reformat columns in csv
+t4_temps <- as.numeric(t4_temp$Temp)
+t4_date <- as.Date(t4_temp$Date_Time , format = "%m/%d/%Y")
+
+tank_4 <- data.frame(t4_date, t4_temps)
+
+sub_tank_4 <- tank_4[tank_4$t4_date > '0018-03-12',]
+summary(sub_tank_4)
+
+t4_subtemp_graph <- ggplot(sub_tank_4, aes(t4_date, t4_temps)) + geom_point()
+t4_subtemp_graph + coord_cartesian(ylim = c(25, 30))
+```
+
+
+```{r}
+#reformat columns in csv
+t5_temps <- as.numeric(t5_temp$Temp)
+t5_date <- as.Date(t5_temp$Date_Time , format = "%m/%d/%Y")
+
+tank_5 <- data.frame(t5_date, t5_temps)
+
+sub_tank_5 <- tank_5[tank_5$t5_date > '0018-03-12',]
+summary(sub_tank_5)
+
+t5_subtemp_graph <- ggplot(sub_tank_5, aes(t5_date, t5_temps)) + geom_point()
+t5_subtemp_graph + coord_cartesian(ylim = c(20, 26))
+```
+
+
+```{r}
+#reformat columns in csv
+t6_temps <- as.numeric(t6_temp$Temp)
+t6_date <- as.Date(t6_temp$Date_Time , format = "%m/%d/%Y")
+
+tank_6 <- data.frame(t6_date, t6_temps)
+
+sub_tank_6 <- tank_6[tank_6$t6_date > '0018-03-12',]
+summary(sub_tank_6)
+
+t6_subtemp_graph <- ggplot(sub_tank_6, aes(t6_date, t6_temps)) + geom_point()
+t6_subtemp_graph + coord_cartesian(ylim = c(24, 30))
+```
+
+
+
+```{r}
+#reformat columns in csv
+t7_temps <- as.numeric(t7_temp$Temp)
+t7_date <- as.Date(t7_temp$Date_Time , format = "%m/%d/%Y")
+
+tank_7 <- data.frame(t7_date, t7_temps)
+
+sub_tank_7 <- tank_7[tank_7$t7_date > '0018-03-12',]
+summary(sub_tank_7)
+
+t7_subtemp_graph <- ggplot(sub_tank_7, aes(t7_date, t7_temps)) + geom_point()
+t7_subtemp_graph + coord_cartesian(ylim = c(20, 30))
+```
+```{r}
+#reformat columns in csv
+t8_temps <- as.numeric(t8_temp$Temp)
+t8_date <- as.Date(t8_temp$Date_Time , format = "%m/%d/%Y")
+
+tank_8 <- data.frame(t8_date, t8_temps)
+
+sub_tank_8 <- tank_8[tank_8$t8_date > '0018-03-12',]
+summary(sub_tank_8)
+
+t8_subtemp_graph <- ggplot(sub_tank_8, aes(t8_date, t8_temps)) + geom_point()
+t8_subtemp_graph + coord_cartesian(ylim = c(25, 35))
+```
+
+
+
+```{r}
+#reformat columns in csv
+t9_temps <- as.numeric(t9_temp$Temp)
+t9_date <- as.Date(t9_temp$Date_Time , format = "%m/%d/%Y")
+
+tank_9 <- data.frame(t9_date, t9_temps)
+
+sub_tank_9 <- tank_9[tank_9$t9_date > '0018-03-12',]
+summary(sub_tank_9)
+
+t9_subtemp_graph <- ggplot(sub_tank_9, aes(t9_date, t9_temps)) + geom_point()
+t9_subtemp_graph + coord_cartesian(ylim = c(20, 25))
+```
+```{r}
+#reformat columns in csv
+t10_temps <- as.numeric(t10_temp$Temp)
+t10_date <- as.Date(t10_temp$Date_Time , format = "%m/%d/%Y")
+
+tank_10 <- data.frame(t10_date, t10_temps)
+
+sub_tank_10 <- tank_10[tank_10$t10_date > '0018-03-12',]
+summary(sub_tank_10)
+
+t10_subtemp_graph <- ggplot(sub_tank_10, aes(t10_date, t10_temps)) + geom_point()
+t10_subtemp_graph + coord_cartesian(ylim = c(25, 35))
+```
+```{r}
+#reformat columns in csv
+t11_temps <- as.numeric(t11_temp$Temp)
+t11_date <- as.Date(t11_temp$Date_Time , format = "%m/%d/%Y")
+
+tank_11 <- data.frame(t11_date, t11_temps)
+
+sub_tank_11 <- tank_11[tank_11$t11_date > '0018-03-12',]
+summary(sub_tank_11)
+
+t11_subtemp_graph <- ggplot(sub_tank_11, aes(t11_date, t11_temps)) + geom_point()
+t11_subtemp_graph + coord_cartesian(ylim = c(22, 30))
+```
+```{r}
+#reformat columns in csv
+t12_temps <- as.numeric(t12_temp$Temp)
+t12_date <- as.Date(t12_temp$Date_Time , format = "%m/%d/%Y")
+
+tank_12 <- data.frame(t12_date, t12_temps)
+
+sub_tank_12 <- tank_12[tank_12$t12_date > '0018-03-12',]
+summary(sub_tank_12)
+
+t12_subtemp_graph <- ggplot(sub_tank_12, aes(t12_date, t12_temps)) + geom_point()
+t12_subtemp_graph + coord_cartesian(ylim = c(29, 35))
+```
+
