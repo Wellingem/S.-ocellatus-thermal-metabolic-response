@@ -295,20 +295,6 @@ RMR_MMR_graph
 ```
 
 #Aerobic Metabolism Statistics
-```{r}
-#anova between temps
-aov1 <- aov(model_data$RMRs ~ as.factor(model_data$temps))
-summary(aov1)
-TukeyHSD(aov1)
-
-aov2 <- aov(model_data$MMRs ~ as.factor(model_data$temps))
-summary(aov2)
-TukeyHSD(aov2)
-
-aov3 <- aov(model_data$ASs ~ as.factor(model_data$temps))
-summary(aov3)
-TukeyHSD(aov3)
-```
 
 #Maximum Likelihood models for Thermal Performance Curves
 ```{r}
@@ -323,12 +309,25 @@ MMRs <- c(MMR_S1_24, MMR_S2_24, MMR_S3_24, MMR_S4_24, MMR_S5_24, MMR_S6_24, MMR_
 ASs <- MMRs - RMRs
 
 model_data <- data.frame(temps, RMRs, MMRs, ASs)
-model_data
 
 raw_plot <- ggplot(model_data, aes(model_data$temps, model_data$ASs)) + geom_point() + theme_classic() + xlab('Temperature (C)') + ylab('Metabolic Rate')
 
 raw_plot
+
+#anova between temps
+aov1 <- aov(model_data$RMRs ~ as.factor(model_data$temps))
+summary(aov1)
+TukeyHSD(aov1)
+
+aov2 <- aov(model_data$MMRs ~ as.factor(model_data$temps))
+summary(aov2)
+TukeyHSD(aov2)
+
+aov3 <- aov(model_data$ASs ~ as.factor(model_data$temps))
+summary(aov3)
+TukeyHSD(aov3)
 ```
+
 
 
 ```{r}
@@ -766,5 +765,12 @@ summary(lac_chase_33)
 
 lac_chase_all <- lm(lactate_data_NO$Lactate ~ lactate_data_NO$Time.exercised..sec.)
 summary(lac_chase_all)
+```
+
+```{r}
+#multiple regression with lactate, body size, and chase time
+
+lac_mult <- lm(lactate_data_NO$Lactate ~ lactate_data_NO$Mass..g. * lactate_data_NO$Time.exercised..sec.)
+summary(lac_mult)
 ```
 
