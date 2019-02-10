@@ -463,9 +463,14 @@ summary(hct_anova)
 hct_graph <- ggplot(hct_data, aes(as.factor(hct_data$hct_temp), hct_data$hct)) + geom_point(size = 2) + geom_errorbar(aes(ymin = hct_data$hct - hct_data$hct_err, ymax = hct_data$hct + hct_data$hct_err), width = 0.2) + labs(y = expression(Hematocrit ('%'*RBC)), x = expression (Temperature (C))) + theme_classic() + theme(axis.text = element_text(size = 15, color = "black"))
 
 hct_graph + coord_cartesian(ylim = c(25, 40))
-
-hct_data
 ```
+```{r}
+#basic hct 
+mean(rd_hct$Hematocrit....RBC.)
+std.err(rd_hct$Hematocrit....RBC.)
+```
+
+
 #How does aerobic scope and MMR change with chase time?
 
 ```{r}
