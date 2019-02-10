@@ -313,16 +313,21 @@ model_data <- data.frame(temps, RMRs, MMRs, ASs)
 raw_plot <- ggplot(model_data, aes(model_data$temps, model_data$ASs)) + geom_point() + theme_classic() + xlab('Temperature (C)') + ylab('Metabolic Rate')
 
 raw_plot
-
+```
+```{r}
 #anova between temps
 aov1 <- aov(model_data$RMRs ~ as.factor(model_data$temps))
 summary(aov1)
 TukeyHSD(aov1)
+```
 
+```{r}
 aov2 <- aov(model_data$MMRs ~ as.factor(model_data$temps))
 summary(aov2)
 TukeyHSD(aov2)
+```
 
+```{r}
 aov3 <- aov(model_data$ASs ~ as.factor(model_data$temps))
 summary(aov3)
 TukeyHSD(aov3)
@@ -530,18 +535,10 @@ chase_as_graph
 anc_mmr1 <- lm(chase_tests$MMRs ~ chase_tests$chase_times * as.factor(chase_tests$temps))
 anova(anc_mmr1)
 
-#anc_mmr2 <- aov(chase_tests$MMRs ~ #as.factor(chase_tests$temps)*chase_tests$chase_times)
-#summary(anc_mmr2)
-
 #ancova: AS
 
 anc_as1 <- lm(chase_tests$ASs ~ chase_tests$chase_times * as.factor(chase_tests$temps))
 anova(anc_as1)
-
-#anc_as2 <- aov(chase_tests$ASs ~ #as.factor(chase_tests$temps)*chase_tests$chase_times)
-#summary(anc_as2)
-
-
 ```
 
 Separate linear regressions between chase time and MMR
