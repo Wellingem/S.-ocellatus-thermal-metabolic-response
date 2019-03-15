@@ -5,6 +5,9 @@ output: html_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(ggplot2)
+#Standard error function used later
+std.err <- function(x) { (sd(x))/(sqrt(length(x))) }
 ```
 
 ```{r}
@@ -35,6 +38,10 @@ summary(sub_tank_1)
 t1_subtemp_graph <- ggplot(sub_tank_1, aes(t1_date, t1_temps)) + geom_point()
 t1_subtemp_graph + coord_cartesian(ylim = c(25, 35))
 ```
+```{r}
+mean(na.omit(sub_tank_1$t1_temps))
+std.err(na.omit(sub_tank_1$t1_temps))
+```
 
 
 
@@ -54,6 +61,11 @@ t2_subtemp_graph + coord_cartesian(ylim = c(25, 35))
 
 
 ```{r}
+mean(na.omit(sub_tank_2$t2_temps))
+std.err(na.omit(sub_tank_2$t2_temps))
+```
+
+```{r}
 #reformat columns in csv
 t3_temps <- as.numeric(t3_temp$Temp)
 t3_date <- as.Date(t3_temp$Date_Time , format = "%m/%d/%Y")
@@ -65,6 +77,10 @@ summary(sub_tank_3)
 
 t3_subtemp_graph <- ggplot(sub_tank_3, aes(t3_date, t3_temps)) + geom_point()
 t3_subtemp_graph + coord_cartesian(ylim = c(25, 35))
+```
+```{r}
+mean(na.omit(sub_tank_3$t3_temps))
+std.err(na.omit(sub_tank_3$t3_temps))
 ```
 
 
@@ -81,6 +97,10 @@ summary(sub_tank_4)
 t4_subtemp_graph <- ggplot(sub_tank_4, aes(t4_date, t4_temps)) + geom_point()
 t4_subtemp_graph + coord_cartesian(ylim = c(25, 30))
 ```
+```{r}
+mean(na.omit(sub_tank_4$t4_temps))
+std.err(na.omit(sub_tank_4$t4_temps))
+```
 
 
 ```{r}
@@ -96,6 +116,10 @@ summary(sub_tank_5)
 t5_subtemp_graph <- ggplot(sub_tank_5, aes(t5_date, t5_temps)) + geom_point()
 t5_subtemp_graph + coord_cartesian(ylim = c(20, 26))
 ```
+```{r}
+mean(na.omit(sub_tank_5$t5_temps))
+std.err(na.omit(sub_tank_5$t5_temps))
+```
 
 
 ```{r}
@@ -110,6 +134,10 @@ summary(sub_tank_6)
 
 t6_subtemp_graph <- ggplot(sub_tank_6, aes(t6_date, t6_temps)) + geom_point()
 t6_subtemp_graph + coord_cartesian(ylim = c(24, 30))
+```
+```{r}
+mean(na.omit(sub_tank_6$t6_temps))
+std.err(na.omit(sub_tank_6$t6_temps))
 ```
 
 
@@ -128,6 +156,12 @@ t7_subtemp_graph <- ggplot(sub_tank_7, aes(t7_date, t7_temps)) + geom_point()
 t7_subtemp_graph + coord_cartesian(ylim = c(20, 30))
 ```
 ```{r}
+mean(na.omit(sub_tank_7$t7_temps))
+std.err(na.omit(sub_tank_7$t7_temps))
+```
+
+
+```{r}
 #reformat columns in csv
 t8_temps <- as.numeric(t8_temp$Temp)
 t8_date <- as.Date(t8_temp$Date_Time , format = "%m/%d/%Y")
@@ -139,6 +173,10 @@ summary(sub_tank_8)
 
 t8_subtemp_graph <- ggplot(sub_tank_8, aes(t8_date, t8_temps)) + geom_point()
 t8_subtemp_graph + coord_cartesian(ylim = c(25, 35))
+```
+```{r}
+mean(na.omit(sub_tank_8$t8_temps))
+std.err(na.omit(sub_tank_8$t8_temps))
 ```
 
 
@@ -157,6 +195,12 @@ t9_subtemp_graph <- ggplot(sub_tank_9, aes(t9_date, t9_temps)) + geom_point()
 t9_subtemp_graph + coord_cartesian(ylim = c(20, 25))
 ```
 ```{r}
+mean(na.omit(sub_tank_9$t9_temps))
+std.err(na.omit(sub_tank_9$t9_temps))
+```
+
+
+```{r}
 #reformat columns in csv
 t10_temps <- as.numeric(t10_temp$Temp)
 t10_date <- as.Date(t10_temp$Date_Time , format = "%m/%d/%Y")
@@ -169,6 +213,12 @@ summary(sub_tank_10)
 t10_subtemp_graph <- ggplot(sub_tank_10, aes(t10_date, t10_temps)) + geom_point()
 t10_subtemp_graph + coord_cartesian(ylim = c(25, 35))
 ```
+```{r}
+mean(na.omit(sub_tank_10$t10_temps))
+std.err(na.omit(sub_tank_10$t10_temps))
+```
+
+
 ```{r}
 #reformat columns in csv
 t11_temps <- as.numeric(t11_temp$Temp)
@@ -183,6 +233,12 @@ t11_subtemp_graph <- ggplot(sub_tank_11, aes(t11_date, t11_temps)) + geom_point(
 t11_subtemp_graph + coord_cartesian(ylim = c(22, 30))
 ```
 ```{r}
+mean(na.omit(sub_tank_11$t11_temps))
+std.err(na.omit(sub_tank_11$t11_temps))
+```
+
+
+```{r}
 #reformat columns in csv
 t12_temps <- as.numeric(t12_temp$Temp)
 t12_date <- as.Date(t12_temp$Date_Time , format = "%m/%d/%Y")
@@ -194,5 +250,9 @@ summary(sub_tank_12)
 
 t12_subtemp_graph <- ggplot(sub_tank_12, aes(t12_date, t12_temps)) + geom_point()
 t12_subtemp_graph + coord_cartesian(ylim = c(29, 35))
+```
+```{r}
+mean(na.omit(sub_tank_12$t12_temps))
+std.err(na.omit(sub_tank_12$t12_temps))
 ```
 

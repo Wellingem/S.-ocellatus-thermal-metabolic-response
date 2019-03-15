@@ -1,41 +1,48 @@
 ---
 title: "Project Graphs"
 output: html_document
+editor_options: 
+  chunk_output_type: inline
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+library(extrafont)
 ```
+
 
 ```{r}
 library(ggplot2)
 
+xlab <- "Temperature (°C)"
+ylab <- expression(Mo[2]*(mmolO[2]*kg^-1*hr^-1))
+
 #Aerobic Scope
-rd_AS_graph <- ggplot(tpc_data, aes(tpc_data$temp, tpc_data$AS)) + geom_point(size = 2) + geom_errorbar(aes(ymin = tpc_data$AS - tpc_data$AS_err, ymax = tpc_data$AS + tpc_data$AS_err), width = 0.2) + stat_smooth() + labs(y = expression (AS*(mg*O[2]*kg^-1*hr^-1)), x = expression (Temperature*(C))) + theme_classic() + theme(axis.text = element_text(size = 15, color = "black")) + scale_x_continuous(breaks = seq(24, 33, by = 3)) + coord_cartesian(ylim = c(0, 1000))
+rd_AS_graph <- ggplot(tpc_data, aes(tpc_data$temp, tpc_data$AS)) + geom_point(size = 2) + geom_errorbar(aes(ymin = tpc_data$AS - tpc_data$AS_err, ymax = tpc_data$AS + tpc_data$AS_err), width = 0.2) + labs(y = ylab, x = xlab) + theme_classic() + theme(axis.text = element_text(size = 10, color = "black", family = 'Times New Roman'), axis.title = element_text(size = 10, color = 'black', family = 'Times New Roman')) + scale_x_continuous(breaks = seq(24, 33, by = 3)) + coord_cartesian(ylim = c(0, 50))
 
 rd_AS_graph
 ```
 ```{r}
 #RMR graph
 
-rd_RMR_graph <- ggplot(tpc_data, aes(tpc_data$temp, tpc_data$RMR)) + geom_point(size = 2) + geom_errorbar(aes(ymin = tpc_data$RMR - tpc_data$RMR_err, ymax = tpc_data$RMR + tpc_data$RMR_err), width = 0.2) + labs(y = expression (RMR*(mg*O[2]*kg^-1*hr^-1)), x = expression (Temperature*(C))) + theme_classic() + theme(axis.text = element_text(size = 15, color = "black")) + stat_smooth() 
+rd_RMR_graph <- ggplot(tpc_data, aes(tpc_data$temp, tpc_data$RMR)) + geom_point(size = 2) + geom_errorbar(aes(ymin = tpc_data$RMR - tpc_data$RMR_err, ymax = tpc_data$RMR + tpc_data$RMR_err), width = 0.2) + labs(y = expression (RMR*(mg*O[2]*kg^-1*hr^-1)), x = expression (Temperature*(C))) + theme_classic() + theme(axis.text = element_text(size = 15, color = "black"))
 
-rd_RMR_graph + coord_cartesian(ylim = c(100, 500))
+rd_RMR_graph + coord_cartesian(ylim = c(0, 50))
 
 ```
 
 ```{r}
 #MMR
 
-rd_MMR_graph <- ggplot(tpc_data, aes(tpc_data$temp, tpc_data$MMR)) + geom_point(size = 2) + geom_errorbar(aes(ymin = tpc_data$MMR - tpc_data$MMR_err, ymax = tpc_data$MMR + tpc_data$MMR_err), width = 0.2) + labs(y = expression (MMR*(mg*O[2]*kg^-1*hr^-1)), x = expression (Temperature*(C))) + theme_classic() + theme(axis.text = element_text(size = 15, color = "black")) + stat_smooth() 
+rd_MMR_graph <- ggplot(tpc_data, aes(tpc_data$temp, tpc_data$MMR)) + geom_point(size = 2) + geom_errorbar(aes(ymin = tpc_data$MMR - tpc_data$MMR_err, ymax = tpc_data$MMR + tpc_data$MMR_err), width = 0.2) + labs(y = expression (MMR*(mg*O[2]*kg^-1*hr^-1)), x = expression (Temperature*(C))) + theme_classic() + theme(axis.text = element_text(size = 15, color = "black")) 
 
-rd_MMR_graph + coord_cartesian(ylim = c(500, 1000))
+rd_MMR_graph + coord_cartesian(ylim = c(0, 60))
 ```
 
 ```{r}
 #RMR and MMR
 
-RMR_MMR_graph <- ggplot(RMR_MMR_data, aes(RMR_MMR_data$temps, RMR_MMR_data$RMR_MMR, group = desig)) + geom_point(size = 3) + geom_errorbar(aes(ymin = RMR_MMR_data$RMR_MMR - RMR_MMR_data$RMR_MMR_err, ymax = RMR_MMR_data$RMR_MMR + RMR_MMR_data$RMR_MMR_err), width=.1) + stat_smooth() + labs(y = expression (MMR*(mg*O[2]*kg^-1*hr^-1)), x = expression (Temperature*(C))) + theme_classic() + theme(axis.text = element_text(size = 15, color = "black")) + coord_cartesian(ylim = c(0, 1000)) + scale_x_continuous(breaks = seq(24, 33, by = 3))
+RMR_MMR_graph <- ggplot(RMR_MMR_data, aes(RMR_MMR_data$temps, RMR_MMR_data$RMR_MMR, shape = desig)) + geom_point(size = 3) + geom_errorbar(aes(ymin = RMR_MMR_data$RMR_MMR - RMR_MMR_data$RMR_MMR_err, ymax = RMR_MMR_data$RMR_MMR + RMR_MMR_data$RMR_MMR_err), width=.1) + labs(y = ylab, x = xlab) + theme_classic() + theme(axis.text = element_text(size = 10, color = "black", family = 'Times New Roman'), axis.title = element_text(size = 10, color = 'black', family = 'Times New Roman')) + scale_x_continuous(breaks = seq(24, 33, by = 3)) +scale_y_continuous(breaks = seq(0, 70, by = 10)) + guides(shape = FALSE)
 
 RMR_MMR_graph 
 ```
@@ -43,7 +50,7 @@ RMR_MMR_graph
 ```{r}
 #Hematocrit 
 
-hct_graph <- ggplot(hct_data, aes(as.factor(hct_data$hct_temp), hct_data$hct)) + geom_point(size = 2) + geom_errorbar(aes(ymin = hct_data$hct - hct_data$hct_err, ymax = hct_data$hct + hct_data$hct_err), width = 0.2) + labs(y = expression(Hematocrit ('%'*RBC)), x = expression (Temperature (C))) + theme_classic() + theme(axis.text = element_text(size = 15, color = "black"))+ coord_cartesian(ylim = c(25, 40))
+hct_graph <- ggplot(hct_data, aes(as.factor(hct_data$hct_temp), hct_data$hct)) + geom_point(size = 2) + geom_errorbar(aes(ymin = hct_data$hct - hct_data$hct_err, ymax = hct_data$hct + hct_data$hct_err), width = 0.2) + labs(y = expression(Hematocrit ('%'*RBC)), x = xlab) + theme_classic() + theme(axis.text = element_text(size = 10, color = "black", family = 'Times New Roman'), axis.title = element_text(size = 10, color = 'black', family = 'Times New Roman')) + coord_cartesian(ylim = c(25, 40))
 
 hct_graph 
 ```
@@ -73,8 +80,22 @@ chase_as_graph
 ```
 
 ```{r}
-lac_graph <- ggplot(data= lac_graph_df, aes(x = lac_temp, y = lac_means)) + geom_point() + theme_classic() + labs(x = 'Temperature', y = 'Lactate concentration (umol/g)') + geom_errorbar(aes(ymin = lac_means - lac_error, ymax = lac_means + lac_error), width = 0.2) + theme(axis.text = element_text(size = 15, color = "black")) + coord_cartesian(ylim = c(0, 100))
+lac_graph <- ggplot(data= lac_graph_df, aes(x = lac_temp, y = lac_means)) + geom_point(size = 3.0) + theme_classic() + labs(x = xlab, y = expression(Lactate*(mu*mol/g))) + geom_errorbar(aes(ymin = lac_means - lac_error, ymax = lac_means + lac_error), width = 0.2) + theme(axis.text = element_text(size = 15, color = "black", family = 'Times New Roman'), axis.title = element_text(size = 15, color = 'black', family = 'Times New Roman'))  + coord_cartesian(ylim = c(0, 100))
 
 lac_graph
 ```
+
+
+
+```{r}
+#for easy graphing
+t <- c(24, 27, 30, 33)
+an_cont <- c((cont_24*100), (cont_27*100), (cont_30*100), (cont_33*100))
+an_cont_df <- data.frame(t, an_cont)
+
+an_cont_graph <- ggplot(data= an_cont_df, aes(x = t, y = an_cont)) + geom_point(size = 5.0) + theme_classic() + labs(x = xlab, y = expression('Anaerobic Contribution (%)')) + theme(axis.text = element_text(size = 15, color = "black"), axis.title = element_text(size = 15, color = 'black'))  + coord_cartesian(ylim = c(0, 100)) + scale_x_continuous(breaks = seq(24, 33, by = 3))
+
+an_cont_graph
+```
+
 

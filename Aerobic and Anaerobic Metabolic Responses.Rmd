@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 std.err <- function(x) { (sd(x))/(sqrt(length(x))) }
 ```
 
+
 ##Aerobic Metabolic Response
 
 #Oxygen Measurements
@@ -67,6 +68,8 @@ std.err(MMR_24)
 
 boxplot(MMR_24)
 ```
+
+
 ```{r}
 #Calculating aerobic scope for each fish at 24C
 AS_24 <- MMR_24 - RMR_24
@@ -76,6 +79,21 @@ mean(AS_24)
 std.err(AS_24)
 
 boxplot(AS_24)
+```
+```{r}
+#changing O2 consumption from mg to mmol
+RMR_24_mmol <- RMR_24/15.9994
+MMR_24_mmol <- MMR_24/15.9994
+AS_24_mmol <- AS_24/15.9994
+
+mean(RMR_24_mmol)
+std.err((RMR_24_mmol))
+
+mean(MMR_24_mmol)
+std.err((MMR_24_mmol))
+
+mean(AS_24_mmol)
+std.err((AS_24_mmol))
 ```
 
 ```{r}
@@ -131,6 +149,22 @@ std.err(AS_27)
 
 boxplot(AS_27)
 ```
+```{r}
+#changing O2 consumption from mg to mmol
+RMR_27_mmol <- RMR_27/15.9994
+MMR_27_mmol <- MMR_27/15.9994
+AS_27_mmol <- AS_27/15.9994
+
+mean(RMR_27_mmol)
+std.err(RMR_27_mmol)
+
+mean(MMR_27_mmol)
+std.err(MMR_27_mmol)
+
+mean(AS_27_mmol)
+std.err(AS_27_mmol)
+```
+
 
 ```{r}
 #calculating RMR for each fish at 30C
@@ -186,6 +220,23 @@ std.err(AS_30)
 
 boxplot(AS_30)
 ```
+```{r}
+#changing O2 consumption from mg to mmol
+RMR_30_mmol <- RMR_30/15.9994
+MMR_30_mmol <- MMR_30/15.9994
+AS_30_mmol <- AS_30/15.9994
+
+mean(RMR_30_mmol)
+std.err(RMR_30_mmol)
+
+mean(MMR_30_mmol)
+std.err(MMR_30_mmol)
+
+mean(AS_30_mmol)
+std.err(AS_30_mmol)
+```
+
+
 
 ```{r}
 #calculating RMR for each fish at 33C
@@ -239,6 +290,21 @@ std.err(AS_33)
 
 boxplot(AS_33)
 ```
+```{r}
+#changing O2 consumption from mg to mmol
+RMR_33_mmol <- RMR_33/15.9994
+MMR_33_mmol <- MMR_33/15.9994
+AS_33_mmol <- AS_33/15.9994
+
+mean(RMR_33_mmol)
+std.err(RMR_33_mmol)
+
+mean(MMR_33_mmol)
+std.err(MMR_33_mmol)
+
+mean(AS_33_mmol)
+std.err(AS_33_mmol)
+```
 
 
 #Aerobic Metabolism Graphs
@@ -247,12 +313,12 @@ boxplot(AS_33)
 #Putting calculated RMRs, MMRs, and Aerobic scopes into a dataframe for easy graphing
 
 temp <- c(24, 27, 30, 33)
-RMR <- c(mean(RMR_24), mean(RMR_27), mean(RMR_30), mean(RMR_33))
-RMR_err <- c(std.err(RMR_24), std.err(RMR_27), std.err(RMR_30), std.err(RMR_33))
-MMR <- c(mean(MMR_24), mean(MMR_27), mean(MMR_30), mean(MMR_33))
-MMR_err <- c(std.err(MMR_24), std.err(MMR_27), std.err(MMR_30), std.err(MMR_33))
-AS <- c(mean(AS_24), mean(AS_27), mean(AS_30), mean(AS_33))
-AS_err <- c(std.err(AS_24), std.err(AS_27), std.err(AS_30), std.err(AS_33))
+RMR <- c(mean(RMR_24_mmol), mean(RMR_27_mmol), mean(RMR_30_mmol), mean(RMR_33_mmol))
+RMR_err <- c(std.err(RMR_24_mmol), std.err(RMR_27_mmol), std.err(RMR_30_mmol), std.err(RMR_33_mmol))
+MMR <- c(mean(MMR_24_mmol), mean(MMR_27_mmol), mean(MMR_30_mmol), mean(MMR_33_mmol))
+MMR_err <- c(std.err(MMR_24_mmol), std.err(MMR_27_mmol), std.err(MMR_30_mmol), std.err(MMR_33_mmol))
+AS <- c(mean(AS_24_mmol), mean(AS_27_mmol), mean(AS_30_mmol), mean(AS_33_mmol))
+AS_err <- c(std.err(AS_24_mmol), std.err(AS_27_mmol), std.err(AS_30_mmol), std.err(AS_33_mmol))
 
 tpc_data <- data.frame(temp, RMR, RMR_err, MMR, MMR_err, AS, AS_err) 
 tpc_data
@@ -280,8 +346,8 @@ rd_MMR_graph + coord_cartesian(ylim = c(500, 1000))
 ```{r}
 #RMR and MMR
 temps <- c(24, 27, 30, 33, 24, 27, 30, 33)
-RMR_MMR <- c(mean(RMR_24), mean(RMR_27), mean(RMR_30), mean(RMR_33), mean(MMR_24), mean(MMR_27), mean(MMR_30), mean(MMR_33))
-RMR_MMR_err <- c(std.err(RMR_24), std.err(RMR_27), std.err(RMR_30), std.err(RMR_33), std.err(MMR_24), std.err(MMR_27), std.err(MMR_30), std.err(MMR_33))
+RMR_MMR <- c(mean(RMR_24_mmol), mean(RMR_27_mmol), mean(RMR_30_mmol), mean(RMR_33_mmol), mean(MMR_24_mmol), mean(MMR_27_mmol), mean(MMR_30_mmol), mean(MMR_33_mmol))
+RMR_MMR_err <- c(std.err(RMR_24_mmol), std.err(RMR_27_mmol), std.err(RMR_30_mmol), std.err(RMR_33_mmol), std.err(MMR_24_mmol), std.err(MMR_27_mmol), std.err(MMR_30_mmol), std.err(MMR_33_mmol))
 desig <- c('RMR', 'RMR', 'RMR', 'RMR', 'MMR', 'MMR', 'MMR', 'MMR')
 
 RMR_MMR_data <- data.frame(temps, RMR_MMR, RMR_MMR_err, desig)
@@ -289,7 +355,7 @@ RMR_MMR_data
 
 #Graph
 
-RMR_MMR_graph <- ggplot(RMR_MMR_data, aes(RMR_MMR_data$temps, RMR_MMR_data$RMR_MMR, group = desig)) + geom_point(size = 3) + geom_errorbar(aes(ymin = RMR_MMR_data$RMR_MMR - RMR_MMR_data$RMR_MMR_err, ymax = RMR_MMR_data$RMR_MMR + RMR_MMR_data$RMR_MMR_err), width=.1) + stat_smooth() + labs(y = expression (MMR*(mg*O[2]*kg^-1*hr^-1)), x = expression (Temperature*(C))) + theme_classic() + theme(axis.text = element_text(size = 15, color = "black")) + coord_cartesian(ylim = c(0, 1000)) + scale_x_continuous(breaks = seq(24, 33, by = 3))
+RMR_MMR_graph <- ggplot(RMR_MMR_data, aes(RMR_MMR_data$temps, RMR_MMR_data$RMR_MMR, group = desig)) + geom_point(size = 3) + geom_errorbar(aes(ymin = RMR_MMR_data$RMR_MMR - RMR_MMR_data$RMR_MMR_err, ymax = RMR_MMR_data$RMR_MMR + RMR_MMR_data$RMR_MMR_err), width=.1) + stat_smooth() + labs(y = expression (MMR*(mg*O[2]*kg^-1*hr^-1)), x = expression (Temperature*(C))) + theme_classic() + theme(axis.text = element_text(size = 15, color = "black")) + coord_cartesian(ylim = c(0, 75)) + scale_x_continuous(breaks = seq(24, 33, by = 3))
 
 RMR_MMR_graph 
 ```
@@ -454,8 +520,10 @@ hct <- c(mean(hct_24), mean(hct_27), mean(hct_30), mean(hct_33))
 hct_err <- c(std.err(hct_24), std.err(hct_27), std.err(hct_30), std.err(hct_33))
 
 hct_data <- data.frame(hct_temp, hct, hct_err) 
+hct_data
+```
 
-
+```{r}
 #testing to see if there are significant differences in hematocrit between temps
 hct_anova <- aov(rd_hct$Hematocrit....RBC. ~ as.factor(rd_hct$Temperature))
 summary(hct_anova)
@@ -469,9 +537,58 @@ hct_graph + coord_cartesian(ylim = c(25, 40))
 mean(rd_hct$Hematocrit....RBC.)
 std.err(rd_hct$Hematocrit....RBC.)
 ```
+##Basic animal info
+
+```{r}
+#weight
+mass_24 <- rd_hct$Mass..g.[rd_hct$Temperature=="24"]
+mass_27 <- rd_hct$Mass..g.[rd_hct$Temperature=="27"]
+mass_30 <- rd_hct$Mass..g.[rd_hct$Temperature=="30"]
+mass_33 <- rd_hct$Mass..g.[rd_hct$Temperature=="33"]
+
+mean(mass_24)
+std.err(mass_24)
+
+mean(mass_27)
+std.err(mass_27)
+
+mean(mass_30)
+std.err(mass_30)
+
+mean(mass_33)
+std.err(mass_33)
+
+mass_aov <- aov(rd_hct$Mass..g. ~ rd_hct$Temperature)
+summary(mass_aov)
+
+mean(rd_hct$Mass..g.)
+std.err(rd_hct$Mass..g.)
+```
+```{r}
+#length
+length_24 <- rd_hct$Length..mm.[rd_hct$Temperature=="24"]
+length_27 <- rd_hct$Length..mm.[rd_hct$Temperature=="27"]
+length_30 <- rd_hct$Length..mm.[rd_hct$Temperature=="30"]
+length_33 <- rd_hct$Length..mm.[rd_hct$Temperature=="33"]
+
+mean(length_24)
+std.err(length_24)
+
+mean(length_27)
+std.err(length_27)
+
+mean(length_30)
+std.err(length_30)
+
+mean(length_33)
+std.err(length_33)
+
+length_aov <- aov(rd_hct$Length..mm. ~ rd_hct$Temperature)
+summary(length_aov)
+```
 
 
-#How does aerobic scope and MMR change with chase time?
+#How does aerobic scope and MMR change with chase time and body size?
 
 ```{r}
 rd_AS_chase <- read.csv('S. ocellatus AS chase time.csv', header=T)
@@ -497,6 +614,79 @@ summary(AS_chase_anova)
 
 TukeyHSD(AS_chase_anova)
 ```
+
+```{r}
+mass_24 <- rd_AS_chase$Mass..g.[rd_AS_chase$Temperature=="24"]
+mass_27 <-rd_AS_chase$Mass..g.[rd_AS_chase$Temperature=="27"]
+mass_30 <- rd_AS_chase$Mass..g.[rd_AS_chase$Temperature=="30"]
+mass_33 <- rd_AS_chase$Mass..g.[rd_AS_chase$Temperature=="33"]
+
+masses <- c(mass_24, mass_27, mass_30, mass_33)
+
+mass_test <- data.frame(temps, masses, MMRs, RMRs, ASs)
+
+#tests for relationships with body size
+oxy_mass_aov <- aov(mass_test$masses ~ mass_test$temps)
+summary(oxy_mass_aov)
+```
+
+```{r}
+oxy_body <- lm(mass_test$RMRs ~ mass_test$masses)
+summary(oxy_body)
+```
+```{r}
+oxy_body2 <- lm(mass_test$MMRs ~ mass_test$masses)
+summary(oxy_body2)
+```
+```{r}
+oxy_body3 <- lm(mass_test$ASs ~ mass_test$masses)
+summary(oxy_body3)
+```
+
+
+```{r}
+#relationships with body size (RMR)
+oxy_mass_aov2 <-lm(mass_test$RMRs ~ mass_test$masses + as.factor(mass_test$temps))
+
+#separate for temps
+oxy_mass_aov3 <- lm(RMR_24_mmol ~ mass_24)
+
+oxy_mass_aov4 <- lm(RMR_27_mmol ~ mass_27)
+
+oxy_mass_aov5 <- lm(RMR_30_mmol ~ mass_30)
+summary(oxy_mass_aov5)
+
+oxy_mass_aov6 <- lm(RMR_33_mmol ~ mass_33)
+```
+```{r}
+#relationships with body size (MMR)
+oxy_mass_aov7 <-lm(mass_test$MMRs ~ mass_test$masses + as.factor(mass_test$temps))
+
+#separate for temps
+oxy_mass_aov8 <- lm(MMR_24_mmol ~ mass_24)
+
+oxy_mass_aov9 <- lm(MMR_27_mmol ~ mass_27)
+
+oxy_mass_aov10 <- lm(MMR_30_mmol ~ mass_30)
+
+oxy_mass_aov11 <- lm(MMR_33_mmol ~ mass_33)
+summary(oxy_mass_aov11)
+```
+```{r}
+#relationships with body size (AS)
+oxy_mass_aov12 <-lm(mass_test$ASs ~ mass_test$masses + as.factor(mass_test$temps))
+
+#separate for temps
+oxy_mass_aov13 <- lm(AS_24_mmol ~ mass_24)
+
+oxy_mass_aov14 <- lm(AS_27_mmol ~ mass_27)
+
+oxy_mass_aov15 <- lm(AS_30_mmol ~ mass_30)
+
+oxy_mass_aov16 <- lm(AS_33_mmol ~ mass_33)
+summary(oxy_mass_aov16)
+```
+
 ```{r}
 #Chase time and temperature
 
@@ -515,7 +705,9 @@ chase_tests <- data.frame(temps, MMRs, ASs, chase_times)
 #chase and MMR
 chase_mmr <- lm(chase_tests$MMRs ~ chase_tests$chase_times)
 summary(chase_mmr)
+```
 
+```{r}
 chase_mmr_graph <- ggplot(chase_tests, aes(chase_times, MMRs, shape = as.factor(temps))) + geom_point(size = 3.0) + theme_classic() + scale_shape_manual(values = c(15, 16, 17, 18)) + labs(x = 'Chase Time (s)', y = 'MMR', shape = 'Temperature') + geom_smooth(method = 'lm', se = FALSE) + theme(axis.text = element_text(size = 15, color = "black")) 
 
 chase_mmr_graph
@@ -537,14 +729,26 @@ chase_as_graph
 
 ```{r}
 #ancova: MMR 
-anc_mmr1 <- lm(chase_tests$MMRs ~ chase_tests$chase_times * as.factor(chase_tests$temps))
+anc_mmr1 <- lm(chase_tests$MMRs ~ chase_tests$chase_times + as.factor(chase_tests$temps))
 anova(anc_mmr1)
 
 #ancova: AS
 
-anc_as1 <- lm(chase_tests$ASs ~ chase_tests$chase_times * as.factor(chase_tests$temps))
+anc_as1 <- lm(chase_tests$ASs ~ chase_tests$chase_times + as.factor(chase_tests$temps))
 anova(anc_as1)
 ```
+
+```{r}
+#lm with just chase time
+lm_mmr <- lm(chase_tests$MMRs ~ chase_tests$chase_times)
+summary(lm_mmr)
+```
+
+```{r}
+lm_as <- lm(chase_tests$ASs ~ chase_tests$chase_times)
+summary(lm_as)
+```
+
 
 Separate linear regressions between chase time and MMR
 ```{r}
@@ -554,21 +758,26 @@ data_24 <- data.frame(AS_chase_24, chase_24)
 
 lm_24_chase <- lm(data_24$chase_24 ~ data_24$AS_chase_24)
 summary(lm_24_chase)
-
+```
+```{r}
 #27
 chase_27  <- chase_tests$MMRs[chase_tests$temps == '27']
 data_27 <- data.frame(AS_chase_27, chase_27)
 
 lm_27_chase <- lm(data_27$chase_27 ~ data_27$AS_chase_27)
 summary(lm_27_chase)
+```
 
+```{r}
 #30
 chase_30  <- chase_tests$MMRs[chase_tests$temps == '30']
 data_30 <- data.frame(AS_chase_30, chase_30)
 
 lm_30_chase <- lm(data_30$chase_30 ~ data_30$AS_chase_30)
 summary(lm_30_chase)
+```
 
+```{r}
 #33
 chase_33  <- chase_tests$MMRs[chase_tests$temps == '33']
 data_33 <- data.frame(AS_chase_33, chase_33)
@@ -661,6 +870,57 @@ lac_graph
 
 lac_graph_df
 ```
+#basic fish info
+```{r}
+#24
+mean(max_lac_data$Mass..g.[max_lac_data$Temperature..=='24'])
+std.err(max_lac_data$Mass..g.[max_lac_data$Temperature..=='24'])
+```
+```{r}
+#27
+mean(max_lac_data$Mass..g.[max_lac_data$Temperature..=='27'])
+std.err(max_lac_data$Mass..g.[max_lac_data$Temperature..=='27'])
+```
+```{r}
+#30
+mean(max_lac_data$Mass..g.[max_lac_data$Temperature..=='30'])
+std.err(max_lac_data$Mass..g.[max_lac_data$Temperature..=='30'])
+```
+```{r}
+#33
+mean(max_lac_data$Mass..g.[max_lac_data$Temperature..=='33'])
+std.err(max_lac_data$Mass..g.[max_lac_data$Temperature..=='33'])
+```
+
+```{r}
+lac_mass_aov <- aov(max_lac_data$Mass..g. ~ max_lac_data$Temperature..)
+summary(lac_mass_aov)
+
+mean(max_lac_data$Mass..g.)
+std.err(max_lac_data$Mass..g.)
+```
+
+```{r}
+#24
+mean(max_lac_data$St.Length..mm.[max_lac_data$Temperature..=='24'])
+std.err(max_lac_data$St.Length..mm.[max_lac_data$Temperature..=='24'])
+```
+```{r}
+#27
+mean(max_lac_data$St.Length..mm.[max_lac_data$Temperature..=='27'])
+std.err(max_lac_data$St.Length..mm.[max_lac_data$Temperature..=='27'])
+```
+```{r}
+#30
+mean(max_lac_data$St.Length..mm.[max_lac_data$Temperature..=='30'])
+std.err(max_lac_data$St.Length..mm.[max_lac_data$Temperature..=='30'])
+```
+```{r}
+#33
+mean(max_lac_data$St.Length..mm.[max_lac_data$Temperature..=='33'])
+std.err(max_lac_data$St.Length..mm.[max_lac_data$Temperature..=='33'])
+```
+
 
 #basic lactate info
 ```{r}
@@ -710,7 +970,15 @@ summary(lac_aov)
 #ANCOVA with temperature and body size
 lac_body <- lm(lactate_data_NO$Lactate ~ lactate_data_NO$Mass..g. * as.factor(lactate_data_NO$Temperature..))
 anova(lac_body)
+```
 
+```{r}
+lac2_body <- lm(lactate_data_NO$Lactate ~ lactate_data_NO$Mass..g.)
+summary(lac2_body)
+```
+
+
+```{r}
 lac_body_graph <- ggplot(lactate_data_NO, aes(Mass..g., Lactate, color = as.factor(Temperature..))) + geom_point() + theme_classic() + labs(x = 'Body Mass (g)', y = 'Lactate Concentration (umol/g)', color = 'Temperature') + scale_color_manual(values = c('blue', 'black', 'darkslategray4', 'firebrick')) + geom_smooth(method = 'lm', se = FALSE) + theme(axis.text = element_text(size = 15, color = "black"))
 
 lac_body_graph
@@ -738,7 +1006,15 @@ summary(lac_body_33)
 #ANCOVA with temperature and chase time
 lac_chase <- lm(lactate_data_NO$Lactate ~ lactate_data_NO$Time.exercised..sec. * as.factor(lactate_data_NO$Temperature..))
 anova(lac_chase)
+```
 
+```{r}
+lac_chase2 <- lm(lactate_data_NO$Lactate ~ lactate_data_NO$Time.exercised..sec. + as.factor(lactate_data_NO$Temperature..))
+summary(lac_chase2)
+```
+
+
+```{r}
 lac_chase_graph <- ggplot(lactate_data_NO, aes(Time.exercised..sec., Lactate, color = as.factor(Temperature..))) + geom_point() + theme_classic() + labs(x = 'Time to Exhaustion (s)', y = 'Lactate Concentration (umol/g)', color = 'Temperature') + scale_color_manual(values = c('blue', 'black', 'darkslategray4', 'firebrick')) + geom_smooth(method = 'lm', se = FALSE) + theme(axis.text = element_text(size = 15, color = "black"))
 
 lac_chase_graph
@@ -747,6 +1023,8 @@ lac_chase_graph2 <- ggplot(lactate_data_NO, aes(Time.exercised..sec., Lactate)) 
 
 lac_chase_graph2
 ```
+
+
 ```{r}
 #Separate regressions for temperatures
 
@@ -774,5 +1052,143 @@ summary(lac_chase_all)
 
 lac_mult <- lm(lactate_data_NO$Lactate ~ lactate_data_NO$Mass..g. * lactate_data_NO$Time.exercised..sec.)
 summary(lac_mult)
+```
+```{r}
+lac_mult2 <- lm(lactate_data_NO$Lactate ~ lactate_data_NO$Mass..g. + lactate_data_NO$Time.exercised..sec.)
+summary(lac_mult2)
+```
+
+#Anaerobic Contribution
+```{r}
+#aerobic conversion (mmolO2 kg-1 hr-1)
+aerobic_24 <- MMR_24_mmol
+aerobic_27 <- MMR_27_mmol
+aerobic_30 <- MMR_30_mmol
+aerobic_33 <- MMR_33_mmol
+
+mean(aerobic_24)
+mean(aerobic_27)
+mean(aerobic_30)
+mean(aerobic_33)
+
+length(aerobic_24)
+length(aerobic_27)
+length(aerobic_30)
+length(aerobic_33)
+```
+```{r}
+anaerobic <- read.csv('lactate for conversion.csv', header = T)
+anaerobic_mmolkg <- (anaerobic$Lactate/1.06)
+anaerobic_v2 <- data.frame(anaerobic, anaerobic_mmolkg)
+rest_lac <- 6.37
+
+anaerobic_24 <- anaerobic_v2$anaerobic_mmolkg[anaerobic_v2$Temperature..=='24'] - rest_lac
+anaerobic_27 <- anaerobic_v2$anaerobic_mmolkg[anaerobic_v2$Temperature..=='27']- rest_lac
+anaerobic_30 <- anaerobic_v2$anaerobic_mmolkg[anaerobic_v2$Temperature..=='30']- rest_lac
+anaerobic_33 <- anaerobic_v2$anaerobic_mmolkg[anaerobic_v2$Temperature..=='33']- rest_lac
+
+anaerobic_24_oxy <- (anaerobic_24 * 1.5) * (1/6) * (1/0.8)
+anaerobic_27_oxy <- (anaerobic_27 * 1.5) * (1/6) * (1/0.8)
+anaerobic_30_oxy <- (anaerobic_30 * 1.5) * (1/6) * (1/0.8)
+anaerobic_33_oxy <- (anaerobic_33 * 1.5) * (1/6) * (1/0.8)
+
+mean(anaerobic_24_oxy)
+std.err(anaerobic_24_oxy)
+length(anaerobic_24_oxy)
+
+mean(anaerobic_27_oxy)
+std.err(anaerobic_27_oxy)
+length(anaerobic_27_oxy)
+
+mean(anaerobic_30_oxy)
+std.err(anaerobic_30_oxy)
+length(anaerobic_30_oxy)
+
+mean(anaerobic_33_oxy)
+std.err(anaerobic_33_oxy)
+length(anaerobic_33_oxy)
+```
+
+
+```{r}
+tem <- c(24, 24, 24, 24, 24, 24, 24, 24, 24, 24, 27, 27, 27, 27, 27, 27, 27, 27, 30, 30, 30, 30, 30, 30 ,30 ,30, 30, 33, 33, 33, 33, 33, 33, 33, 33, 33, 33)
+an <- c(anaerobic_24_oxy, anaerobic_27_oxy, anaerobic_30_oxy, anaerobic_33_oxy)
+an_df <- data.frame(tem, an)
+
+an_aov <- aov(an_df$an ~ an_df$tem)
+summary(an_aov)
+```
+
+
+```{r}
+#calculate percentage
+cont_24 <- mean(anaerobic_24_oxy / (aerobic_24 + anaerobic_24_oxy)) *100
+cont_27 <- mean(anaerobic_27_oxy / (aerobic_27 + anaerobic_27_oxy)) *100
+cont_30 <- mean(anaerobic_30_oxy / (aerobic_30 + anaerobic_30_oxy)) *100
+cont_33 <- mean(anaerobic_33_oxy / (aerobic_33 + anaerobic_33_oxy)) *100
+
+cont_24
+cont_27
+cont_30
+cont_33
+
+mean(cont_24, cont_27, cont_30, cont_33)
+```
+
+```{r}
+#std.err
+cont_24_tot <- (anaerobic_24_oxy / (aerobic_24 + anaerobic_24_oxy)) 
+cont_27_tot <- (anaerobic_27_oxy / (aerobic_27 + anaerobic_27_oxy)) 
+cont_30_tot <- (anaerobic_30_oxy / (aerobic_30 + anaerobic_30_oxy)) 
+cont_33_tot <- (anaerobic_33_oxy / (aerobic_33 + anaerobic_33_oxy)) 
+
+cont_24_err <- std.err(cont_24_tot)
+cont_27_err <- std.err(cont_27_tot)
+cont_30_err <- std.err(cont_30_tot)
+cont_33_err <- std.err(cont_33_tot)
+```
+```{r}
+an_con <- c(cont_24, cont_27, cont_30, cont_33)
+mean(an_con)
+std.err(an_con)
+```
+
+
+
+
+#Bacterial Checks
+```{r}
+bact_csv <- read.csv('S. ocellatus bacterial checks.csv', header = T)
+
+
+bact_checks_24 <- bact_csv$Slope....sat...hr.[bact_csv$Temperature=='24'] 
+bact_checks_27 <- bact_csv$Slope....sat...hr.[bact_csv$Temperature=='27']
+bact_checks_30 <- bact_csv$Slope....sat...hr.[bact_csv$Temperature=='30']
+bact_checks_33 <- bact_csv$Slope....sat...hr.[bact_csv$Temperature=='33']
+
+mean(bact_checks_24)
+std.err(bact_checks_24)
+
+mean(bact_checks_27)
+std.err(bact_checks_27)
+
+mean(bact_checks_30)
+std.err(bact_checks_30)
+
+mean(bact_checks_33)
+std.err(bact_checks_33)
+```
+
+
+
+Converted values: (mmol/kg hr)
+24: 0.01445 +/- 0.00063
+27:0.01678 +/- 0.00089
+30:0.02262 +/- 0.00409
+33: 0.02060 +/- 0.00093
+```{r}
+bact_checks<- c(0.01445, 0.01678, 0.02262, 0.02060)
+mean(bact_checks)
+std.err(bact_checks)
 ```
 
